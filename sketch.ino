@@ -3,12 +3,12 @@
 #include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "Sergio";
-const char* password = "2758Muha";
+const char* ssid = "ssid_name";
+const char* password = "pass_wifi";
 
 #define RELAY_PIN 0  // GPIO2 ESP-01
 
-String BOTtoken = "8351887711:AAEC24VVdoCQPPdagx3KnMKxZAcul3nheUM";  // токен бота
+String BOTtoken = "token_telegram_bot";  // токен бота
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
