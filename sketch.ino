@@ -25,7 +25,7 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(RELAY_PIN, OUTPUT);
-  digitalWrite(RELAY_PIN, LOW);
+  digitalWrite(RELAY_PIN, HIGH);
 
   client.setInsecure(); // Telegram API
 
@@ -62,7 +62,7 @@ void handleNewMessages(int numNewMessages) {
 
     // ====== ВЫКЛЮЧЕНИЕ ======
     if (value == 0) {
-      digitalWrite(RELAY_PIN, LOW);
+      digitalWrite(RELAY_PIN, HIGH);
       relayIsOn = false;
       bot.sendMessage(chat_id, "Реле выключено", "");
     }
@@ -73,7 +73,7 @@ void handleNewMessages(int numNewMessages) {
       relayOnTime = millis();
       relayIsOn = true;
 
-      digitalWrite(RELAY_PIN, HIGH);
+      digitalWrite(RELAY_PIN, LOW);
 
       bot.sendMessage(chat_id,
         "Реле включено на " + String(value) + " минут",
@@ -97,9 +97,10 @@ void loop() {
 
   // --- Авто-выключение по времени ---
   if (relayIsOn && (millis() - relayOnTime >= relayDuration)) {
-    digitalWrite(RELAY_PIN, LOW);
+    digitalWrite(RELAY_PIN, HIGH);
     relayIsOn = false;
     Serial.println("Auto OFF (timer expired)");
   }
 }
+
 
